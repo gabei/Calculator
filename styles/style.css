@@ -7,3 +7,30 @@ body {
   box-sizing: inherit;
   font-size: 1.6rem;
 }
+
+.calculator {
+  width: 600px;
+  height:600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  font-size: 2rem;
+}
+
+.display {
+  grid-area: 1 / 1 / 1 / 5;
+  background: red;
+}
+
+.key {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  transition: .2s all;
+}
+
+.key:hover {
+  background: #eee;
+  cursor: pointer;
+}
