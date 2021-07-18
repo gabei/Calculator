@@ -9,53 +9,62 @@ body {
 }
 
 .calculator {
-  width: 600px;
-  height:600px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  font-size: 2rem;
-  grid-template-areas: 
-  "display display display display"
-  "clear clear negative divide"
-  "7 8 9 multiply"
-  "4 5 6 minus"
-  "1 2 3 plus"
-  "0 0 decimal equals"
-  ;
-}
 
-.display {
-  grid-area: 1 / 1 / 1 / 5;
-  background: red;
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
 }
 
 .key {
   display: grid;
   justify-content: center;
   align-items: center;
-  transition: .2s all;
+  background-color: lavender;
+  border: 1px solid #fff;
+  transition: .1s all;;
 }
 
 .key:hover {
-  background: #eee;
-  cursor: pointer;
+  background-color: mediumslateblue;
 }
 
-.key .divide {
-  grid-area: divide;
+.display {
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 4;
+  background-color: rebeccapurple;
 }
 
-.key .multiply {
-  grid-area: multiply;
+.add {
+  grid-column: 4 / span 1;
+  grid-row: 5 / span 1
 }
 
-.key .minus {
-  grid-area: minus;
+.subtract {
+  grid-column: 4 / span 1;
+  grid-row: 4 / span 1
 }
 
-.key .add {
-  grid-area: add;
+.multiply {
+  grid-column: 4 / span 1;
+  grid-row: 3 / span 1
 }
 
+.divide {
+  grid-column: 4 / span 1;
+  grid-row: 2 / span 1
+}
+
+.clear {
+  grid-area: 2 / 1 / 2 / 2;
+}
+
+.zero {
+  grid-area: 6 / 1 / 6 / 3;
+}
+
+.equals {
+  grid-area: 6 / 3 / 6 / 5;
+}
