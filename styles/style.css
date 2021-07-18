@@ -41,6 +41,7 @@ body {
   background-color: ghostwhite;
   font-size: 5rem;
   text-align: right;
+  overflow: hidden;
 }
 
 .add {
