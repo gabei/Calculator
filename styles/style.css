@@ -68,3 +68,7 @@ body {
 .equals {
   grid-area: 6 / 3 / 6 / 5;
 }
+
+.decimal {
+  grid-area: 5 / 2 / 5 / 4;
+}
