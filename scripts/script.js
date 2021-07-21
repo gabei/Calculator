@@ -43,8 +43,8 @@ function updateDisplay(value){
   calDisplay.textContent = calDisplay.textContent + value;
 }
 
-/* Input Operation
-___________________________*/
+/* Inputs to Calculator Operations
+___________________________________*/
 let operands = [];
 let operator = [];
 
@@ -61,6 +61,23 @@ function stringToNum(string){
 function clearDisplay(){
   calDisplay.textContent = '';
 }
+
+/* Operators
+___________________________*/
+
+calContainer.addEventListener('click', function(e){
+  if(e.target.classList.contains('operator')){
+    console.log(e.target);
+    //NEEDS NEW FUNCTION
+    /*
+    When pressed:
+      1. current display number is stored
+      2. If isTimeToEvaluate(), operate on expression
+      3. If evaluation occurs, update operands with result
+      4. Continue allowing number input.
+    */ 
+  }
+});
 
 function isTimeToEvaluate(){
   return (
