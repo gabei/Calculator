@@ -27,10 +27,13 @@ calContainer.addEventListener('click', function(e){
     //NEEDS NEW FUNCTION
     /*
     When pressed:
-      1. current display number is stored
-      2. If isTimeToEvaluate(), operate on expression
-      3. If evaluation occurs, update operands with result
-      4. Continue allowing number input.
+      - if operatorExist() already?
+        - then return
+      - getOperandFromInput()
+      -if isTimeToEvaluate()
+        - then operate(a, b, operator)
+        - else
+          - clearDisplay() for next input
     */ 
   }
 });
