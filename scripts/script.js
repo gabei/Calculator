@@ -22,11 +22,11 @@ calContainer.addEventListener('click', function(e){
 
 calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('operator')){
+    let val = e.target.getAttribute('value')
     getOperandFromInput();
-    operator.push(e.target.getAttribute('value'));
+    operator.push(val);
     console.log(operands);
     console.log(operator);
-
     //NEEDS NEW FUNCTION
     /*
     When pressed:
