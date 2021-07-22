@@ -6,7 +6,6 @@ __________________________________*/
 const calContainer = document.querySelector('.calculator');
 const calDisplay = document.querySelector('.display');
 
-let calculator = new Calculator();
 let operands = [];
 let operator = [];
 
@@ -14,7 +13,7 @@ let operator = [];
 __________________________________*/
 
 calContainer.addEventListener('click', function(e){
-  if(e.target.classList.contains('key')){
+  if(e.target.classList.contains('digit')){
     let val = e.target.getAttribute('value');
     console.log(val);
     updateDisplay(val);
@@ -23,7 +22,11 @@ calContainer.addEventListener('click', function(e){
 
 calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('operator')){
-    console.log(e.target);
+    getOperandFromInput();
+    operator.push(e.target.getAttribute('value'));
+    console.log(operands);
+    console.log(operator);
+
     //NEEDS NEW FUNCTION
     /*
     When pressed:
@@ -75,21 +78,25 @@ function operatorExists(){
   return operators.length > 0;
 }
 
+function operandExists(){
+  return operands.length != 0;
+}
+
 function operate(a, b, operator){
   let result;
 
   switch(operator){
     case '*':
-      result = calculator.multiply(a, b);
+      result = multiply(a, b);
       break;
     case '/':
-      result = calculator.divide(a, b);
+      result = divide(a, b);
       break;
     case '+':
-      result = calculator.add(a, b);
+      result = add(a, b);
       break;
     case '-':
-      result = calculator.subtract(a, b);
+      result = subtract(a, b);
       break;
     default:
       break;
@@ -97,26 +104,20 @@ function operate(a, b, operator){
   return result;
 }
 
-/* Calculator
+/* Calculator Functions
 ___________________________*/
-
-class Calculator {
-  //empty for now
-  constructor(){}
-
-  multiply(a, b){
+function multiply(a, b){
     return a * b;
-  }
+}
 
-  divide(a, b){
+function divide(a, b){
     return a / b
-  }
+}
 
-  add(a, b){
+function add(a, b){
     return a + b;
-  }
+}
 
-  subtract(a, b){
+function subtract(a, b){
     return a - b;
-  }
 }
