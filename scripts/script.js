@@ -64,7 +64,7 @@ ___________________________*/
 function isTimeToEvaluate(){
   return (
     operands.length === 2 &&
-    operator.length > 0
+    operatorExists()
   )
 }
 
