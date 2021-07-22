@@ -1,33 +1,17 @@
 console.log('script.js loaded...');
 
-/* Calculator
-___________________________*/
-class Calculator {
-  //empty for now
-  constructor(){}
-
-  multiply(a, b){
-    return a * b;
-  }
-
-  divide(a, b){
-    return a / b
-  }
-
-  add(a, b){
-    return a + b;
-  }
-
-  subtract(a, b){
-    return a - b;
-  }
-}
-
-/* Inputs
-___________________________*/
+/* DOM Elements and Trackers
+__________________________________*/
 
 const calContainer = document.querySelector('.calculator');
 const calDisplay = document.querySelector('.display');
+
+let calculator = new Calculator();
+let operands = [];
+let operator = [];
+
+/* Event Listeners
+__________________________________*/
 
 calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('key')){
@@ -36,34 +20,6 @@ calContainer.addEventListener('click', function(e){
     updateDisplay(val);
   }
 });
-
-function updateDisplay(value){
-  value === 'clear' ?
-  calDisplay.textContent = '' :
-  calDisplay.textContent = calDisplay.textContent + value;
-}
-
-/* Inputs to Calculator Operations
-___________________________________*/
-let operands = [];
-let operator = [];
-
-function getOperandFromInput(){
-  let newOperand = calDisplay.textContent;
-  newOperand = stringToNum(newOperand);
-  operands.push(newOperand);
-}
-
-function stringToNum(string){
-  return --string;
-}
-
-function clearDisplay(){
-  calDisplay.textContent = '';
-}
-
-/* Operators
-___________________________*/
 
 calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('operator')){
@@ -79,6 +35,32 @@ calContainer.addEventListener('click', function(e){
   }
 });
 
+/* Inputs and Display
+___________________________*/
+
+function getOperandFromInput(){
+  let newOperand = calDisplay.textContent;
+  newOperand = stringToNum(newOperand);
+  operands.push(newOperand);
+}
+
+function stringToNum(string){
+  return --string;
+}
+
+function updateDisplay(value){
+  value === 'clear' ?
+  calDisplay.textContent = '' :
+  calDisplay.textContent = calDisplay.textContent + value;
+}
+
+function clearDisplay(){
+  calDisplay.textContent = '';
+}
+
+/* Calculator Operations
+___________________________*/
+
 function isTimeToEvaluate(){
   return (
     operands.length === 2 &&
@@ -86,9 +68,9 @@ function isTimeToEvaluate(){
   )
 }
 
-/* Calculator Operations
-___________________________*/
-let calculator = new Calculator();
+function operatorExists(){
+  return operators.length > 0;
+}
 
 function operate(a, b, operator){
   let result;
@@ -110,4 +92,28 @@ function operate(a, b, operator){
       break;
   }
   return result;
+}
+
+/* Calculator
+___________________________*/
+
+class Calculator {
+  //empty for now
+  constructor(){}
+
+  multiply(a, b){
+    return a * b;
+  }
+
+  divide(a, b){
+    return a / b
+  }
+
+  add(a, b){
+    return a + b;
+  }
+
+  subtract(a, b){
+    return a - b;
+  }
 }
