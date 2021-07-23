@@ -9,7 +9,8 @@ const calDisplay = document.querySelector('.display');
 let operands = [];
 let operator = {
   element: null,
-  operator: []
+  operator: [],
+  isHighlighted: false,
 }
 
 /* Event Listeners
@@ -20,17 +21,18 @@ calContainer.addEventListener('click', function(e){
     let val = e.target.getAttribute('value');
     console.log(val);
     updateDisplay(val);
+    toggleOperatorStyling(true);
   }
 });
 
 calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('operator')){
-    let val = e.target.getAttribute('value')
     getOperandFromInput();
-    operator.operator = val;
-    operator.element = e.target;
+    updateOperator(e.target);
+    toggleOperatorStyling(false);
     console.log(operands);
     console.log(operator);
+    
     //NEEDS NEW FUNCTION
     /*
     When pressed:
@@ -54,6 +56,11 @@ function getOperandFromInput(){
   operands.push(newOperand);
 }
 
+function updateOperator(target){
+  operator.operator = target.getAttribute('value');
+  operator.element = target;
+}
+
 function stringToNum(string){
   return --string;
 }
@@ -67,8 +74,21 @@ function updateDisplay(value){
 function clearDisplay(){
   calDisplay.textContent = '';
   operands = [];
+  toggleOperatorStyling(true);
   operator.element = null;
-  operator.operator = []
+  operator.operator = [];
+}
+
+function toggleOperatorStyling(isDigitPress){
+  if(operatorExists() && !isDigitPress){
+    if(operator.isHighlighted) return;
+    operator.element.classList.add('operator-pressed');
+    operator.isHighlighted = true;
+  }
+  if(operatorExists() && isDigitPress){
+    operator.element.classList.remove('operator-pressed');
+    operator.isHighlighted = false;
+  }
 }
 
 /* Calculator Operations
