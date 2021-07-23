@@ -7,7 +7,10 @@ const calContainer = document.querySelector('.calculator');
 const calDisplay = document.querySelector('.display');
 
 let operands = [];
-let operator = [];
+let operator = {
+  element: null,
+  operator: []
+}
 
 /* Event Listeners
 __________________________________*/
@@ -24,7 +27,8 @@ calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('operator')){
     let val = e.target.getAttribute('value')
     getOperandFromInput();
-    operator.push(val);
+    operator.operator = val;
+    operator.element = e.target;
     console.log(operands);
     console.log(operator);
     //NEEDS NEW FUNCTION
@@ -56,12 +60,15 @@ function stringToNum(string){
 
 function updateDisplay(value){
   value === 'clear' ?
-  calDisplay.textContent = '' :
+  clearDisplay() :
   calDisplay.textContent = calDisplay.textContent + value;
 }
 
 function clearDisplay(){
   calDisplay.textContent = '';
+  operands = [];
+  operator.element = null;
+  operator.operator = []
 }
 
 /* Calculator Operations
@@ -75,7 +82,7 @@ function isTimeToEvaluate(){
 }
 
 function operatorExists(){
-  return operators.length > 0;
+  return operator.operator.length > 0;
 }
 
 function operandExists(){
