@@ -19,7 +19,6 @@ __________________________________*/
 calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('digit')){
     let val = e.target.getAttribute('value');
-    console.log(val);
     updateDisplay(val);
     toggleOperatorStyling(true);
   }
@@ -28,10 +27,17 @@ calContainer.addEventListener('click', function(e){
 calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
+    calDisplay.textContent = '';
     updateOperator(e.target);
     toggleOperatorStyling(false);
     console.log(operands);
     console.log(operator);
+
+    let result;
+    if(isTimeToEvaluate()){
+      result = operate(operands[0], operands[1], operator.operator);
+      console.log(result);
+    }
     
     //NEEDS NEW FUNCTION
     /*
@@ -62,7 +68,7 @@ function updateOperator(target){
 }
 
 function stringToNum(string){
-  return --string;
+  return +string;
 }
 
 function updateDisplay(value){
@@ -128,6 +134,8 @@ function operate(a, b, operator){
     default:
       break;
   }
+  operands = [];
+  operands.push(result);
   return result;
 }
 
