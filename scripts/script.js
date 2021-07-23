@@ -28,7 +28,6 @@ calContainer.addEventListener('click', function(e){
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
     calDisplay.textContent = '';
-    updateOperator(e.target);
     toggleOperatorStyling(false);
     console.log(operands);
     console.log(operator);
@@ -38,6 +37,8 @@ calContainer.addEventListener('click', function(e){
       result = operate(operands[0], operands[1], operator.operator);
       console.log(result);
     }
+
+    updateOperator(e.target);
     
     //NEEDS NEW FUNCTION
     /*
