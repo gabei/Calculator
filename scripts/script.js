@@ -39,18 +39,6 @@ calContainer.addEventListener('click', function(e){
     }
 
     updateOperator(e.target);
-    
-    //NEEDS NEW FUNCTION
-    /*
-    When pressed:
-      - if operatorExist() already?
-        - then return
-      - getOperandFromInput()
-      -if isTimeToEvaluate()
-        - then operate(a, b, operator)
-        - else
-          - clearDisplay() for next input
-    */ 
   }
 });
 
