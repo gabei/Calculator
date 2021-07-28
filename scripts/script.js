@@ -27,22 +27,7 @@ calContainer.addEventListener('click', function(e){
 });
 
 calContainer.addEventListener('click', function(e){
-  /* this needs to be a separate function */
-  if(e.target.classList.contains('operator')){
-    getOperandFromInput();
-    calDisplay.textContent = '';
-    toggleOperatorStyling(false);
-    let result;
-    if(isTimeToEvaluate()){
-      result = operate(operands[0], operands[1], operator.operator);
-      console.log(result);
-    }
-
-    updateOperator(e.target);
-
-    console.log(operands);
-    console.log(operator);
-  }
+  evaluateCurrentExpression.bind(this);
 });
 
 /* Inputs and Display
@@ -97,9 +82,20 @@ function toggleOperatorStyling(isDigitPress){
 ___________________________*/
 
 function evaluateCurrentExpression(){
-  if(isTimeToEvaluate()){
-    let result = operate(operands[0], operands[1], operator.operator);
-    console.log(result);
+  if(e.target.classList.contains('operator')){
+    getOperandFromInput();
+    calDisplay.textContent = '';
+    toggleOperatorStyling(false);
+    let result;
+    if(isTimeToEvaluate()){
+      result = operate(operands[0], operands[1], operator.operator);
+      console.log(result);
+    }
+
+    updateOperator(e.target);
+
+    console.log(operands);
+    console.log(operator);
   }
 }
 
