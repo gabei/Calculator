@@ -22,16 +22,16 @@ calContainer.addEventListener('click', function(e){
     updateDisplay(val);
     toggleOperatorStyling(true);
   }
+
+
 });
 
 calContainer.addEventListener('click', function(e){
+  /* this needs to be a separate function */
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
     calDisplay.textContent = '';
     toggleOperatorStyling(false);
-    console.log(operands);
-    console.log(operator);
-
     let result;
     if(isTimeToEvaluate()){
       result = operate(operands[0], operands[1], operator.operator);
@@ -39,6 +39,9 @@ calContainer.addEventListener('click', function(e){
     }
 
     updateOperator(e.target);
+
+    console.log(operands);
+    console.log(operator);
   }
 });
 
@@ -47,13 +50,17 @@ ___________________________*/
 
 function getOperandFromInput(){
   let newOperand = calDisplay.textContent;
-  newOperand = stringToNum(newOperand);
-  operands.push(newOperand);
+  if(newOperand){
+    newOperand = stringToNum(newOperand);
+    operands.push(newOperand);
+  }
 }
 
 function updateOperator(target){
-  operator.operator = target.getAttribute('value');
-  operator.element = target;
+  if(operandExists()){
+    operator.operator = target.getAttribute('value');
+    operator.element = target;
+  }
 }
 
 function stringToNum(string){
@@ -88,6 +95,13 @@ function toggleOperatorStyling(isDigitPress){
 
 /* Calculator Operations
 ___________________________*/
+
+function evaluateCurrentExpression(){
+  if(isTimeToEvaluate()){
+    let result = operate(operands[0], operands[1], operator.operator);
+    console.log(result);
+  }
+}
 
 function isTimeToEvaluate(){
   return (
