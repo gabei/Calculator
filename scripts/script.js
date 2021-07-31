@@ -54,6 +54,9 @@ function numToString(num){
 }
 
 function updateDisplay(value){
+  if(calDisplay.textContent){
+    calDisplay.textContent = '';
+  }
   value === 'clear' ?
   clearDisplay() :
   calDisplay.textContent = calDisplay.textContent + value;
