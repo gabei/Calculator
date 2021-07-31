@@ -49,6 +49,10 @@ function stringToNum(string){
   return +string;
 }
 
+function numToString(num){
+  return num.toString();
+}
+
 function updateDisplay(value){
   value === 'clear' ?
   clearDisplay() :
@@ -87,9 +91,11 @@ function evaluateCurrentExpression(e){
     if(isTimeToEvaluate()){
       result = operate(operands[0], operands[1], operator.operator);
       console.log(result);
+      updateDisplay(numToString(result));
     }
 
     updateOperator(e.target);
+    
 
     console.log(operands);
     console.log(operator);
