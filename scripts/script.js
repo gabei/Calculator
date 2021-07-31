@@ -16,22 +16,19 @@ let operator = {
 /* Event Listeners
 __________________________________*/
 
-calContainer.addEventListener('click', function(e){
+calContainer.addEventListener('click', inputDigit);
+calContainer.addEventListener('click', evaluateCurrentExpression);
+
+/* Inputs and Display
+___________________________*/
+
+function inputDigit(e){
   if(e.target.classList.contains('digit')){
     let val = e.target.getAttribute('value');
     updateDisplay(val);
     toggleOperatorStyling(true);
   }
-
-
-});
-
-calContainer.addEventListener('click', function(e){
-  evaluateCurrentExpression.bind(this);
-});
-
-/* Inputs and Display
-___________________________*/
+}
 
 function getOperandFromInput(){
   let newOperand = calDisplay.textContent;
@@ -81,7 +78,7 @@ function toggleOperatorStyling(isDigitPress){
 /* Calculator Operations
 ___________________________*/
 
-function evaluateCurrentExpression(){
+function evaluateCurrentExpression(e){
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
     calDisplay.textContent = '';
