@@ -5,6 +5,7 @@ __________________________________*/
 
 const calContainer = document.querySelector('.calculator');
 const calDisplay = document.querySelector('.display');
+const equalsButton = document.querySelector('.equals');
 
 let operands = [];
 let operator = {
@@ -13,16 +14,24 @@ let operator = {
   isHighlighted: false,
 }
 
+let resultInDisplay = false;
+
 /* Event Listeners
 __________________________________*/
 
 calContainer.addEventListener('click', inputDigit);
-calContainer.addEventListener('click', evaluateCurrentExpression);
+calContainer.addEventListener('click', evaluateOnOperatorPress);
+equalsButton.addEventListener('click', operateOnEquals);
 
 /* Inputs and Display
 ___________________________*/
 
 function inputDigit(e){
+  if(resultInDisplay){
+    calDisplay.textContent = '';
+    resultInDisplay = false;
+  }
+
   if(e.target.classList.contains('digit')){
     let val = e.target.getAttribute('value');
     updateDisplay(val);
@@ -38,13 +47,6 @@ function getOperandFromInput(){
   }
 }
 
-function updateOperator(target){
-  if(operandExists()){
-    operator.operator = target.getAttribute('value');
-    operator.element = target;
-  }
-}
-
 function stringToNum(string){
   return +string;
 }
@@ -54,9 +56,6 @@ function numToString(num){
 }
 
 function updateDisplay(value){
-  if(calDisplay.textContent){
-    calDisplay.textContent = '';
-  }
   value === 'clear' ?
   clearDisplay() :
   calDisplay.textContent = calDisplay.textContent + value;
@@ -85,21 +84,20 @@ function toggleOperatorStyling(isDigitPress){
 /* Calculator Operations
 ___________________________*/
 
-function evaluateCurrentExpression(e){
+function evaluateOnOperatorPress(e){
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
     calDisplay.textContent = '';
     toggleOperatorStyling(false);
     let result;
+
     if(isTimeToEvaluate()){
-      result = operate(operands[0], operands[1], operator.operator);
+      result = operate();
       console.log(result);
-      updateDisplay(numToString(result));
     }
 
     updateOperator(e.target);
     
-
     console.log(operands);
     console.log(operator);
   }
@@ -120,10 +118,26 @@ function operandExists(){
   return operands.length != 0;
 }
 
-function operate(a, b, operator){
+function updateOperator(target){
+  if(operandExists()){
+    operator.operator = target.getAttribute('value');
+    operator.element = target;
+  }
+}
+
+function operateOnEquals(){
+  getOperandFromInput();
+  operate();
+}
+
+function operate(){
+  let a = operands[0];
+  let b = operands[1];
+  let op = operator.operator;
+  
   let result;
 
-  switch(operator){
+  switch(op){
     case '*':
       result = multiply(a, b);
       break;
@@ -141,6 +155,10 @@ function operate(a, b, operator){
   }
   operands = [];
   operands.push(result);
+
+  updateDisplay(numToString(result));
+  resultInDisplay = true;
+
   return result;
 }
 
