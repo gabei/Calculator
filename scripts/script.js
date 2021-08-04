@@ -28,7 +28,7 @@ ___________________________*/
 
 function inputDigit(e){
   if(resultInDisplay){
-    calDisplay.textContent = '';
+    clearDisplay();
     resultInDisplay = false;
   }
 
@@ -56,12 +56,16 @@ function numToString(num){
 
 function updateDisplay(value){
   value === 'clear' ?
-  clearDisplay() :
+  clearVariablesAndDisplay() :
   calDisplay.textContent = calDisplay.textContent + value;
 }
 
 function clearDisplay(){
   calDisplay.textContent = '';
+}
+
+function clearVariablesAndDisplay(){
+  clearDisplay();
   operands = [];
   operator.element = null;
   operator.operator = [];
@@ -73,7 +77,7 @@ ___________________________*/
 function evaluateOnOperatorPress(e){
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
-    calDisplay.textContent = '';
+    clearDisplay();
 
     if(isTimeToEvaluate()) operate();
     updateOperator(e.target);
@@ -83,7 +87,7 @@ function evaluateOnOperatorPress(e){
 function evaluateOnEquals(e){
   if(e.target.classList.contains('equals')) {
     getOperandFromInput();
-    calDisplay.textContent = '';
+    clearDisplay();
     if(isTimeToEvaluate()) operate();
   }
 }
