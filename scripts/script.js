@@ -1,12 +1,17 @@
 console.log('script.js loaded...');
 
-/* DOM Elements and Trackers
+/* DOM Elements and Variables
 __________________________________*/
 
 const calContainer = document.querySelector('.calculator');
 const calDisplay = document.querySelector('.display');
-const equalsButton = document.querySelector('.equals');
 
+/* Operations Variables
+ - Operands are temporarily stored in an array so that evaluations can be made when exactly two operands exist. The resulting evaluation can then be stored in the newly cleared operands array. ex: [2, 2] = [4]
+ - The Operator contains:
+  1. an element (DOM element) for styling purposes
+  2. An operator array for evaluation (see above operand explanation). The newest operator replaces the previous one upon evaluation.
+  3. A boolean to signify whether the operator DOM element is currently highlighted (i.e. being used in operations) for UI. */
 let operands = [];
 let operator = {
   element: null,
@@ -14,6 +19,7 @@ let operator = {
   isHighlighted: false,
 }
 
+/* resultInDisplay helps decide when the display should be cleared to allow new number inputs after a completed operation is being shown in the display */
 let resultInDisplay = false;
 
 /* Event Listeners
@@ -24,7 +30,7 @@ calContainer.addEventListener('click', evaluateOnOperatorPress);
 calContainer.addEventListener('click', evaluateOnEquals);
 
 /* Inputs and Display
-___________________________*/
+__________________________________*/
 
 function inputDigit(e){
   if(resultInDisplay){
@@ -72,7 +78,7 @@ function clearVariablesAndDisplay(){
 }
 
 /* Calculator Functions
-___________________________*/
+__________________________________*/
 
 function evaluateOnOperatorPress(e){
   if(e.target.classList.contains('operator')){
@@ -149,7 +155,7 @@ function operate(){
 }
 
 /* Calculator Operations
-___________________________*/
+__________________________________*/
 function multiply(a, b){
     return a * b;
 }
