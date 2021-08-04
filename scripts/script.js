@@ -21,7 +21,7 @@ __________________________________*/
 
 calContainer.addEventListener('click', inputDigit);
 calContainer.addEventListener('click', evaluateOnOperatorPress);
-equalsButton.addEventListener('click', operateOnEquals);
+equalsButton.addEventListener('click', evaluateOnEquals);
 
 /* Inputs and Display
 ___________________________*/
@@ -35,7 +35,6 @@ function inputDigit(e){
   if(e.target.classList.contains('digit')){
     let val = e.target.getAttribute('value');
     updateDisplay(val);
-    toggleOperatorStyling(true);
   }
 }
 
@@ -64,31 +63,17 @@ function updateDisplay(value){
 function clearDisplay(){
   calDisplay.textContent = '';
   operands = [];
-  toggleOperatorStyling(true);
   operator.element = null;
   operator.operator = [];
 }
 
-function toggleOperatorStyling(isDigitPress){
-  if(operatorExists() && !isDigitPress){
-    if(operator.isHighlighted) return;
-    operator.element.classList.add('operator-pressed');
-    operator.isHighlighted = true;
-  }
-  if(operatorExists() && isDigitPress){
-    operator.element.classList.remove('operator-pressed');
-    operator.isHighlighted = false;
-  }
-}
-
-/* Calculator Operations
+/* Calculator Functions
 ___________________________*/
 
 function evaluateOnOperatorPress(e){
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
     calDisplay.textContent = '';
-    toggleOperatorStyling(false);
     let result;
 
     if(isTimeToEvaluate()){
@@ -101,6 +86,11 @@ function evaluateOnOperatorPress(e){
     console.log(operands);
     console.log(operator);
   }
+}
+
+function evaluateOnEquals(){
+  getOperandFromInput();
+  operate();
 }
 
 function isTimeToEvaluate(){
@@ -123,11 +113,6 @@ function updateOperator(target){
     operator.operator = target.getAttribute('value');
     operator.element = target;
   }
-}
-
-function operateOnEquals(){
-  getOperandFromInput();
-  operate();
 }
 
 function operate(){
@@ -153,16 +138,18 @@ function operate(){
     default:
       break;
   }
+
+  // seperate function? operateResult()??
   operands = [];
   operands.push(result);
-
+  console.log(result);
   updateDisplay(numToString(result));
   resultInDisplay = true;
 
   return result;
 }
 
-/* Calculator Functions
+/* Calculator Operations
 ___________________________*/
 function multiply(a, b){
     return a * b;
