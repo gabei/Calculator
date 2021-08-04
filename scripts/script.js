@@ -21,7 +21,7 @@ __________________________________*/
 
 calContainer.addEventListener('click', inputDigit);
 calContainer.addEventListener('click', evaluateOnOperatorPress);
-equalsButton.addEventListener('click', evaluateOnEquals);
+calContainer.addEventListener('click', evaluateOnEquals);
 
 /* Inputs and Display
 ___________________________*/
@@ -80,9 +80,12 @@ function evaluateOnOperatorPress(e){
   }
 }
 
-function evaluateOnEquals(){
-  getOperandFromInput();
-  operate();
+function evaluateOnEquals(e){
+  if(e.target.classList.contains('equals')) {
+    getOperandFromInput();
+    calDisplay.textContent = '';
+    if(isTimeToEvaluate()) operate();
+  }
 }
 
 function isTimeToEvaluate(){
