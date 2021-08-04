@@ -124,6 +124,12 @@ function updateOperator(target){
   }
 }
 
+function handleError(){
+  clearVariablesAndDisplay();
+  updateDisplay('ERROR');
+  resultInDisplay = true;
+}
+
 function operate(){
   let a = operands[0];
   let b = operands[1];
@@ -149,6 +155,11 @@ function operate(){
   }
 
   // seperate function? operateResult()??
+  if(result === 'ERROR'){
+    handleError();
+    return;
+  } 
+
   result = result.toFixed(2);
   operands = [];
   operands.push(result);
@@ -162,17 +173,18 @@ function operate(){
 /* Calculator Operations
 __________________________________*/
 function multiply(a, b){
-    return a * b;
+  return a * b;
 }
 
 function divide(a, b){
-    return a / b
+  if (b === 0) return 'ERROR';
+  return a / b
 }
 
 function add(a, b){
-    return a + b;
+  return a + b;
 }
 
 function subtract(a, b){
-    return a - b;
+  return a - b;
 }
