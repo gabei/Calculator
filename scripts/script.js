@@ -74,17 +74,9 @@ function evaluateOnOperatorPress(e){
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
     calDisplay.textContent = '';
-    let result;
 
-    if(isTimeToEvaluate()){
-      result = operate();
-      console.log(result);
-    }
-
+    if(isTimeToEvaluate()) operate();
     updateOperator(e.target);
-    
-    console.log(operands);
-    console.log(operator);
   }
 }
 
@@ -143,7 +135,7 @@ function operate(){
   operands = [];
   operands.push(result);
   console.log(result);
-  updateDisplay(numToString(result));
+  updateDisplay(result);
   resultInDisplay = true;
 
   return result;
