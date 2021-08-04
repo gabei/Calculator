@@ -26,6 +26,7 @@ body {
   background-color: lavender;
   border: 1px solid #fff;
   transition: .1s all;;
+  cursor: pointer;
 }
 
 .key:hover {

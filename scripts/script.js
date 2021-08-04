@@ -88,7 +88,6 @@ function evaluateOnOperatorPress(e){
   if(e.target.classList.contains('operator')){
     getOperandFromInput();
     clearDisplay();
-
     if(isTimeToEvaluate()) operate();
     updateOperator(e.target);
   }
@@ -96,6 +95,7 @@ function evaluateOnOperatorPress(e){
 
 function evaluateOnEquals(e){
   if(e.target.classList.contains('equals')) {
+    if(resultInDisplay) return;
     getOperandFromInput();
     clearDisplay();
     if(isTimeToEvaluate()) operate();
@@ -159,8 +159,7 @@ function operate(){
     handleError();
     return;
   } 
-
-  result = result.toFixed(2);
+  result = stringToNum(result.toFixed(2));
   operands = [];
   operands.push(result);
   console.log(result);
