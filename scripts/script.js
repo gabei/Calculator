@@ -149,6 +149,7 @@ function operate(){
   }
 
   // seperate function? operateResult()??
+  result = result.toFixed(2);
   operands = [];
   operands.push(result);
   console.log(result);
