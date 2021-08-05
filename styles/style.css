@@ -84,3 +84,9 @@ body {
 .is-selected {
   background-color: mediumslateblue;
 }
+
+.decimal-pressed {
+  background-color: rgba(lavender, 0.2);
+  pointer-events: none;
+  opacity: 0.5;
+}

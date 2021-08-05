@@ -15,11 +15,14 @@
 /* resultInDisplay helps decide when the display should be cleared to allow new
 number inputs after a completed operation is being shown in the display */
 
+// decimalPressed tracks decimal presses to prevent more than one decimal point
+
 /* DOM Elements and Variables
 __________________________________*/
 
 const calContainer = document.querySelector(".calculator");
 const calDisplay = document.querySelector(".display");
+const decimal = document.querySelector(".decimal");
 
 let operands = [];
 let operator = {
@@ -29,6 +32,7 @@ let operator = {
 };
 
 let resultInDisplay = false;
+let decimalPressed = false;
 
 /* Event Listeners
 __________________________________*/
@@ -36,13 +40,14 @@ __________________________________*/
 calContainer.addEventListener("click", inputDigit);
 calContainer.addEventListener("click", evaluateOnOperatorPress);
 calContainer.addEventListener("click", evaluateOnEquals);
+decimal.addEventListener("click", toggleDecimal);
 
 /* Inputs and Display
 __________________________________*/
 
 function inputDigit(e) {
   if (resultInDisplay) {
-    clearDisplay();
+    clearDisplay(true);
     resultInDisplay = false;
   }
 
@@ -66,9 +71,10 @@ function updateDisplay(value) {
     : (calDisplay.textContent = calDisplay.textContent + value);
 }
 
-function clearDisplay() {
+function clearDisplay(ignoreDecimalToggle) {
   calDisplay.textContent = "";
   removeOperatorHighlight();
+  if (!ignoreDecimalToggle) toggleDecimal();
 }
 
 function clearVariablesAndDisplay() {
@@ -216,4 +222,15 @@ function formatAndDisplayResult(result) {
   resultInDisplay = true;
 
   return result;
+}
+
+function toggleDecimal() {
+  console.log("decimal pressed.");
+  if (decimalPressed) {
+    decimal.classList.remove("decimal-pressed");
+    decimalPressed = false;
+  } else {
+    decimal.classList.add("decimal-pressed");
+    decimalPressed = true;
+  }
 }
