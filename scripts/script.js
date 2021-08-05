@@ -9,8 +9,8 @@
   1. an element (DOM element) for styling purposes
   2. An operator array for evaluation (see above operand explanation). The
      newest operator replaces the previous one upon evaluation.
-  3. A boolean to signify whether the operator DOM element is currently
-     highlighted (i.e. being used in operations) for UI. */
+  3. A boolean (isSelected) maintaining the current state of the operator
+     element (highlighted or not)
 
 /* resultInDisplay helps decide when the display should be cleared to allow new
 number inputs after a completed operation is being shown in the display */
@@ -25,7 +25,7 @@ let operands = [];
 let operator = {
   element: null,
   operator: [],
-  isHighlighted: false,
+  isSelected: false,
 };
 
 let resultInDisplay = false;
@@ -60,14 +60,6 @@ function getOperandFromInput() {
   }
 }
 
-function stringToNum(string) {
-  return +string;
-}
-
-function numToString(num) {
-  return num.toString();
-}
-
 function updateDisplay(value) {
   value === "clear"
     ? clearVariablesAndDisplay()
@@ -76,6 +68,7 @@ function updateDisplay(value) {
 
 function clearDisplay() {
   calDisplay.textContent = "";
+  removeOperatorHighlight();
 }
 
 function clearVariablesAndDisplay() {
@@ -93,7 +86,10 @@ function evaluateOnOperatorPress(e) {
     getOperandFromInput();
     clearDisplay();
     if (isTimeToEvaluate()) operate();
+
+    if (operator.isSelected) removeOperatorHighlight();
     updateOperator(e.target);
+    highlightOperator();
   }
 }
 
@@ -102,6 +98,7 @@ function evaluateOnEquals(e) {
     if (resultInDisplay) return;
     getOperandFromInput();
     clearDisplay();
+    removeOperatorHighlight();
     if (isTimeToEvaluate()) operate();
   }
 }
@@ -123,12 +120,6 @@ function updateOperator(target) {
     operator.operator = target.getAttribute("value");
     operator.element = target;
   }
-}
-
-function handleError() {
-  clearVariablesAndDisplay();
-  updateDisplay("ERROR");
-  resultInDisplay = true;
 }
 
 function operate() {
@@ -172,6 +163,7 @@ function operate() {
 
 /* Calculator Operations
 __________________________________*/
+
 function multiply(a, b) {
   return a * b;
 }
@@ -187,4 +179,35 @@ function add(a, b) {
 
 function subtract(a, b) {
   return a - b;
+}
+
+/* Helper Functions
+__________________________________*/
+
+function stringToNum(string) {
+  return +string;
+}
+
+function numToString(num) {
+  return num.toString();
+}
+
+function handleError() {
+  clearVariablesAndDisplay();
+  updateDisplay("ERROR");
+  resultInDisplay = true;
+}
+
+function highlightOperator() {
+  if (operator.element) {
+    operator.element.classList.add("is-selected");
+    operator.isSelected = true;
+  }
+}
+
+function removeOperatorHighlight() {
+  if (operator.element) {
+    operator.element.classList.remove("is-selected");
+    operator.isSelected = false;
+  }
 }
