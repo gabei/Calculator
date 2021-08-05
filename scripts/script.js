@@ -151,12 +151,8 @@ function operate() {
     handleError();
     return;
   }
-  result = stringToNum(result.toFixed(2));
-  operands = [];
-  operands.push(result);
-  console.log(result);
-  updateDisplay(result);
-  resultInDisplay = true;
+
+  result = formatAndDisplayResult(result);
 
   return result;
 }
@@ -210,4 +206,14 @@ function removeOperatorHighlight() {
     operator.element.classList.remove("is-selected");
     operator.isSelected = false;
   }
+}
+
+function formatAndDisplayResult(result) {
+  result = stringToNum(result.toFixed(3));
+  operands = [];
+  operands.push(result);
+  updateDisplay(result);
+  resultInDisplay = true;
+
+  return result;
 }
