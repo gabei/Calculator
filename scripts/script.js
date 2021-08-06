@@ -23,6 +23,7 @@ __________________________________*/
 const calContainer = document.querySelector(".calculator");
 const calDisplay = document.querySelector(".display");
 const decimal = document.querySelector(".decimal");
+const backspaceButton = document.querySelector(".backspace");
 
 let operands = [];
 let operator = {
@@ -41,6 +42,7 @@ calContainer.addEventListener("click", inputDigit);
 calContainer.addEventListener("click", evaluateOnOperatorPress);
 calContainer.addEventListener("click", evaluateOnEquals);
 decimal.addEventListener("click", toggleDecimal);
+backspaceButton.addEventListener("click", backspace);
 
 /* Inputs and Display
 __________________________________*/
@@ -63,6 +65,13 @@ function getOperandFromInput() {
     newOperand = stringToNum(newOperand);
     operands.push(newOperand);
   }
+}
+
+function backspace() {
+  let input = calDisplay.textContent;
+  input = input.slice(0, input.length - 1);
+  clearDisplay();
+  updateDisplay(input);
 }
 
 function updateDisplay(value) {
@@ -225,7 +234,6 @@ function formatAndDisplayResult(result) {
 }
 
 function toggleDecimal() {
-  console.log("decimal pressed.");
   if (decimalPressed) {
     decimal.classList.remove("decimal-pressed");
     decimalPressed = false;
