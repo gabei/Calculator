@@ -73,12 +73,20 @@ body {
   grid-area: 5 / 1 / 5 / 3;
 }
 
+.one {
+  grid-area: 5 / 3 / 5 / 4;
+}
+
 .equals {
   grid-area: 6 / 3 / 6 / 5;
 }
 
 .decimal {
-  grid-area: 6 / 1 / 6 / 3;
+  grid-area: 6 / 2 / 6 / 3;
+}
+
+.backspace {
+  grid-area: 6 / 1 / 6 / 2;
 }
 
 .is-selected {
