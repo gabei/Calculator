@@ -102,7 +102,20 @@ function clearVariablesAndDisplay() {
 /* Calculator Functions
 __________________________________*/
 
-function evaluateOnOperatorPress(e, isKeyPress) {
+function evaluateOnOperatorPress(e, isKeyPress = false) {
+  if (isKeyPress) {
+    if (e.classList.contains("operator")) {
+      getOperandFromInput();
+      clearDisplay();
+      if (isTimeToEvaluate()) operate();
+
+      if (operator.isSelected) removeOperatorHighlight();
+
+      updateOperator(e, isKeyPress);
+      highlightOperator();
+    }
+  }
+
   if (e.target.classList.contains("operator")) {
     getOperandFromInput();
     clearDisplay();
@@ -137,7 +150,7 @@ function operandExists() {
   return operands.length != 0;
 }
 
-function updateOperator(e, isKeyPress) {
+function updateOperator(e, isKeyPress = false) {
   if (operandExists()) {
     if (isKeyPress) {
       let element = selectOperator(e);
@@ -290,5 +303,8 @@ document.addEventListener("keydown", function (e) {
 
   console.log(e.key);
   if (e.key in validChars) updateDisplay(e.key);
-  if (e.key in operatorChars) evaluateOnOperatorPress(e, true);
+  if (e.key in operatorChars) {
+    let op = selectOperator(e.key);
+    evaluateOnOperatorPress(op, true);
+  }
 });
