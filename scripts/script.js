@@ -113,6 +113,7 @@ function evaluateOnOperatorPress(e, isKeyPress = false) {
 
       updateOperator(e, isKeyPress);
       highlightOperator();
+      return;
     }
   }
 
@@ -164,9 +165,9 @@ function updateOperator(e, isKeyPress = false) {
   }
 }
 
-function selectOperator(e) {
+function selectOperator(key) {
   let op = null;
-  switch (e.key) {
+  switch (key) {
     case "-":
       op = subtractButton;
       break;
@@ -302,9 +303,15 @@ document.addEventListener("keydown", function (e) {
   const operatorChars = ["-", "+", "*", "/"];
 
   console.log(e.key);
-  if (e.key in validChars) updateDisplay(e.key);
-  if (e.key in operatorChars) {
+  console.log(typeof e.key);
+  if (validChars.includes(e.key)) {
+    console.log("valid char registered...");
+    updateDisplay(e.key);
+  }
+  if (operatorChars.includes(e.key)) {
+    console.log("operator registered...");
     let op = selectOperator(e.key);
+    console.log(op.classList);
     evaluateOnOperatorPress(op, true);
   }
 });
