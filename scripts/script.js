@@ -103,6 +103,7 @@ function evaluateOnOperatorPress(e) {
     if (isTimeToEvaluate()) operate();
 
     if (operator.isSelected) removeOperatorHighlight();
+
     updateOperator(e.target);
     highlightOperator();
   }
@@ -242,3 +243,14 @@ function toggleDecimal() {
     decimalPressed = true;
   }
 }
+
+/* Keyboard Functionality
+__________________________________*/
+document.addEventListener("keydown", function (e) {
+  const validChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  const operatorChars = ["-", "+", "*", "/"];
+
+  console.log(e.key);
+  if (e.key in validChars) updateDisplay(e.key);
+  //if (e.key in operatorChars) updateOperator(e);
+});
