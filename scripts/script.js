@@ -290,5 +290,5 @@ document.addEventListener("keydown", function (e) {
 
   console.log(e.key);
   if (e.key in validChars) updateDisplay(e.key);
-  //if (e.key in operatorChars) evaluateOnOperatorPress(e, true);
+  if (e.key in operatorChars) evaluateOnOperatorPress(e, true);
 });
