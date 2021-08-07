@@ -24,6 +24,12 @@ const calContainer = document.querySelector(".calculator");
 const calDisplay = document.querySelector(".display");
 const decimal = document.querySelector(".decimal");
 const backspaceButton = document.querySelector(".backspace");
+//specific to keyboard input
+const subtractButton = document.querySelector(".subtract");
+const addButton = document.querySelector(".plus");
+const multiplyButton = document.querySelector(".multiply");
+const divideButton = document.querySelector(".divide");
+const equalsButton = document.querySelector(".equals");
 
 let operands = [];
 let operator = {
@@ -96,7 +102,7 @@ function clearVariablesAndDisplay() {
 /* Calculator Functions
 __________________________________*/
 
-function evaluateOnOperatorPress(e) {
+function evaluateOnOperatorPress(e, isKeyPress) {
   if (e.target.classList.contains("operator")) {
     getOperandFromInput();
     clearDisplay();
@@ -104,7 +110,7 @@ function evaluateOnOperatorPress(e) {
 
     if (operator.isSelected) removeOperatorHighlight();
 
-    updateOperator(e.target);
+    updateOperator(e, isKeyPress);
     highlightOperator();
   }
 }
@@ -131,11 +137,42 @@ function operandExists() {
   return operands.length != 0;
 }
 
-function updateOperator(target) {
+function updateOperator(e, isKeyPress) {
   if (operandExists()) {
-    operator.operator = target.getAttribute("value");
-    operator.element = target;
+    if (isKeyPress) {
+      let element = selectOperator(e);
+      operator.operator = element.getAttribute("value");
+      operator.element = element;
+      return;
+    }
+
+    operator.operator = e.target.getAttribute("value");
+    operator.element = e.target;
   }
+}
+
+function selectOperator(e) {
+  let op = null;
+  switch (e.key) {
+    case "-":
+      op = subtractButton;
+      break;
+    case "+":
+      op = addButton;
+      break;
+    case "*":
+      op = multiplyButton;
+      break;
+    case "/":
+      op = divideButton;
+      break;
+    default:
+    case "=":
+      op = equalsButton;
+      break;
+  }
+
+  return op;
 }
 
 function operate() {
@@ -246,11 +283,12 @@ function toggleDecimal() {
 
 /* Keyboard Functionality
 __________________________________*/
+
 document.addEventListener("keydown", function (e) {
   const validChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const operatorChars = ["-", "+", "*", "/"];
 
   console.log(e.key);
   if (e.key in validChars) updateDisplay(e.key);
-  //if (e.key in operatorChars) updateOperator(e);
+  //if (e.key in operatorChars) evaluateOnOperatorPress(e, true);
 });
