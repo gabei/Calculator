@@ -76,7 +76,7 @@ function getOperandFromInput() {
 function backspace() {
   let input = calDisplay.textContent;
   input = input.slice(0, input.length - 1);
-  clearDisplay();
+  clearDisplay(true);
   updateDisplay(input);
 }
 
@@ -93,10 +93,11 @@ function clearDisplay(ignoreDecimalToggle) {
 }
 
 function clearVariablesAndDisplay() {
-  clearDisplay();
   operands = [];
   operator.element = null;
   operator.operator = [];
+
+  decimalPressed ? clearDisplay() : clearDisplay(true);
 }
 
 /* Calculator Functions
