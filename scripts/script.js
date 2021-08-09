@@ -47,7 +47,7 @@ __________________________________*/
 calContainer.addEventListener("click", inputDigit);
 calContainer.addEventListener("click", evaluateOnOperatorPress);
 calContainer.addEventListener("click", evaluateOnEquals);
-decimal.addEventListener("click", toggleDecimal);
+decimal.addEventListener("click", disableDecimal);
 backspaceButton.addEventListener("click", backspace);
 
 /* Inputs and Display
@@ -97,7 +97,7 @@ function clearVariablesAndDisplay() {
   operator.element = null;
   operator.operator = [];
 
-  decimalPressed ? clearDisplay() : clearDisplay(true);
+  enableDecimal();
 }
 
 /* Calculator Functions
@@ -108,6 +108,8 @@ function evaluateOnOperatorPress(e, isKeyPress = false) {
     if (e.classList.contains("operator")) {
       getOperandFromInput();
       clearDisplay();
+      enableDecimal();
+
       if (isTimeToEvaluate()) operate();
 
       if (operator.isSelected) removeOperatorHighlight();
@@ -294,6 +296,16 @@ function toggleDecimal() {
     decimal.classList.add("decimal-pressed");
     decimalPressed = true;
   }
+}
+
+function disableDecimal() {
+  decimal.classList.add("decimal-pressed");
+  decimalPressed = true;
+}
+
+function enableDecimal() {
+  decimal.classList.remove("decimal-pressed");
+  decimalPressed = false;
 }
 
 /* Keyboard Functionality
