@@ -94,6 +94,7 @@ function clearDisplay(ignoreDecimalToggle) {
 
 function clearVariablesAndDisplay() {
   operands = [];
+  removeOperatorHighlight();
   operator.element = null;
   operator.operator = [];
   enableDecimal();
@@ -245,7 +246,7 @@ function highlightOperator() {
 }
 
 function removeOperatorHighlight() {
-  if (operator.element) {
+  if (operator.isSelected) {
     operator.element.classList.remove("is-selected");
     operator.isSelected = false;
   }
