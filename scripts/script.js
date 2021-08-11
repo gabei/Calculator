@@ -105,7 +105,7 @@ __________________________________*/
 
 function evaluateOnOperatorPress(e, isKeyPress = false) {
   if (isKeyPress) {
-    if (e.classList.contains("operator")) {
+    if (e.classList.value.contains("operator")) {
       getOperandFromInput();
       clearDisplay();
       enableDecimal();
@@ -169,27 +169,24 @@ function updateOperator(e, isKeyPress = false) {
 }
 
 function selectOperator(key) {
-  let op = null;
   switch (key) {
     case "-":
-      op = subtractButton;
+      subtractButton.click();
       break;
     case "+":
-      op = addButton;
+      addButton.click();
       break;
     case "*":
-      op = multiplyButton;
+      multiplyButton.click();
       break;
     case "/":
-      op = divideButton;
+      divideButton.click();
       break;
     default:
     case "=":
-      op = equalsButton;
+      equalsButton.click();
       break;
   }
-
-  return op;
 }
 
 function operate() {
@@ -313,18 +310,14 @@ __________________________________*/
 
 document.addEventListener("keydown", function (e) {
   const validChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const operatorChars = ["-", "+", "*", "/"];
+  const operatorChars = ["-", "+", "*", "/", "="];
 
   console.log(e.key);
-  console.log(typeof e.key);
   if (validChars.includes(e.key)) {
     console.log("valid char registered...");
     updateDisplay(e.key);
   }
   if (operatorChars.includes(e.key)) {
-    console.log("operator registered...");
-    let op = selectOperator(e.key);
-    console.log(op.classList);
-    evaluateOnOperatorPress(op, true);
+    selectOperator(e.key);
   }
 });
