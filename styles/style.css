@@ -1,3 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,600;1,400&display=swap");
+
+/* Colors
+________________________*/
+:root {
+  --cal-black: #3a3335;
+  --cal-gray: #9f9fad;
+  --cal-white: ghostwhite;
+  --cal-orange: #f0a202;
+  --cal-green: #64b6ac;
+  --cal-red: #bb4430;
+}
+
 html {
   font-size: 62.5%;
   box-sizing: border-box;
@@ -6,6 +19,7 @@ html {
 body {
   box-sizing: inherit;
   font-size: 1.6rem;
+  font-family: "Chakra Petch", sans-serif;
 }
 
 .calculator {
@@ -16,21 +30,29 @@ body {
   width: 500px;
   height: 500px;
   margin: 4rem auto 0;
+  padding: 2rem;
   border: 3px solid azure;
+  background: var(--cal-black);
 }
 
 .key {
   display: grid;
   justify-content: center;
   align-items: center;
-  background-color: lavender;
+  background-color: var(--cal-gray);
   border: 1px solid #fff;
   transition: 0.1s all;
   cursor: pointer;
+  font-size: 3rem;
+  color: var(--cal-white);
+}
+
+.operator {
+  background: var(--cal-orange);
 }
 
 .key:hover {
-  background-color: mediumslateblue;
+  background-color: var(--cal-green);
 }
 
 .display {
@@ -43,6 +65,7 @@ body {
   font-size: 5rem;
   text-align: right;
   overflow: hidden;
+  border-bottom: 1rem solid var(--cal-black);
 }
 
 .add {
@@ -90,11 +113,11 @@ body {
 }
 
 .is-selected {
-  background-color: mediumslateblue;
+  background-color: var(--cal-green);
 }
 
 .decimal-pressed {
-  background-color: rgba(lavender, 0.2);
+  background-color: rgba(var(--cal-gray), 0.2);
   pointer-events: none;
   opacity: 0.5;
 }
