@@ -75,7 +75,10 @@ function getOperandFromInput() {
 
 function backspace() {
   let input = calDisplay.textContent;
+  let removed = input[input.length - 1];
   input = input.slice(0, input.length - 1);
+
+  if (removed === ".") enableDecimal();
   clearDisplay();
   updateDisplay(input);
 }
