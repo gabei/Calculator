@@ -65,6 +65,7 @@ body {
   font-size: 5rem;
   text-align: right;
   overflow: hidden;
+  border-bottom: 1rem solid var(--cal-black);
 }
 
 .add {
