@@ -26,7 +26,7 @@ const decimal = document.querySelector(".decimal");
 const backspaceButton = document.querySelector(".backspace");
 //specific to keyboard input
 const subtractButton = document.querySelector(".subtract");
-const addButton = document.querySelector(".plus");
+const addButton = document.querySelector(".add");
 const multiplyButton = document.querySelector(".multiply");
 const divideButton = document.querySelector(".divide");
 const equalsButton = document.querySelector(".equals");
@@ -96,38 +96,20 @@ function clearVariablesAndDisplay() {
   operands = [];
   operator.element = null;
   operator.operator = [];
-
   enableDecimal();
 }
 
 /* Calculator Functions
 __________________________________*/
 
-function evaluateOnOperatorPress(e, isKeyPress = false) {
-  if (isKeyPress) {
-    if (e.classList.value.contains("operator")) {
-      getOperandFromInput();
-      clearDisplay();
-      enableDecimal();
-
-      if (isTimeToEvaluate()) operate();
-
-      if (operator.isSelected) removeOperatorHighlight();
-
-      updateOperator(e, isKeyPress);
-      highlightOperator();
-      return;
-    }
-  }
-
+function evaluateOnOperatorPress(e) {
   if (e.target.classList.contains("operator")) {
     getOperandFromInput();
     clearDisplay();
     if (isTimeToEvaluate()) operate();
-
     if (operator.isSelected) removeOperatorHighlight();
 
-    updateOperator(e, isKeyPress);
+    updateOperator(e);
     highlightOperator();
   }
 }
@@ -154,15 +136,8 @@ function operandExists() {
   return operands.length != 0;
 }
 
-function updateOperator(e, isKeyPress = false) {
+function updateOperator(e) {
   if (operandExists()) {
-    if (isKeyPress) {
-      let element = selectOperator(e);
-      operator.operator = element.getAttribute("value");
-      operator.element = element;
-      return;
-    }
-
     operator.operator = e.target.getAttribute("value");
     operator.element = e.target;
   }
@@ -170,6 +145,8 @@ function updateOperator(e, isKeyPress = false) {
 
 function selectOperator(key) {
   switch (key) {
+    case "Backspace":
+      backspaceButton.click();
     case "-":
       subtractButton.click();
       break;
@@ -220,7 +197,6 @@ function operate() {
   }
 
   result = formatAndDisplayResult(result);
-
   return result;
 }
 
@@ -310,9 +286,8 @@ __________________________________*/
 
 document.addEventListener("keydown", function (e) {
   const validChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const operatorChars = ["-", "+", "*", "/", "="];
+  const operatorChars = ["-", "+", "*", "/", "=", "Backspace"];
 
-  console.log(e.key);
   if (validChars.includes(e.key)) {
     console.log("valid char registered...");
     updateDisplay(e.key);
