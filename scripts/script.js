@@ -108,7 +108,7 @@ __________________________________*/
 function evaluateOnOperatorPress(e) {
   if (e.target.classList.contains("operator")) {
     getOperandFromInput();
-    clearDisplay();
+    clearDisplay(true);
     if (isTimeToEvaluate()) operate();
     if (operator.isSelected) removeOperatorHighlight();
 

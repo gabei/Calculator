@@ -90,6 +90,7 @@ body {
 
 .clear {
   grid-area: 2 / 1 / 2 / 2;
+  background: var(--cal-red);
 }
 
 .zero {
