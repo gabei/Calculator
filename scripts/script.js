@@ -76,7 +76,7 @@ function getOperandFromInput() {
 function backspace() {
   let input = calDisplay.textContent;
   input = input.slice(0, input.length - 1);
-  clearDisplay(true);
+  clearDisplay();
   updateDisplay(input);
 }
 
@@ -147,6 +147,7 @@ function selectOperator(key) {
   switch (key) {
     case "Backspace":
       backspaceButton.click();
+      break;
     case "-":
       subtractButton.click();
       break;
