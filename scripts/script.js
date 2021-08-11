@@ -89,7 +89,7 @@ function updateDisplay(value) {
 function clearDisplay(ignoreDecimalToggle) {
   calDisplay.textContent = "";
   removeOperatorHighlight();
-  if (!ignoreDecimalToggle) toggleDecimal();
+  if (!ignoreDecimalToggle) enableDecimal();
 }
 
 function clearVariablesAndDisplay() {
@@ -259,16 +259,6 @@ function formatAndDisplayResult(result) {
   resultInDisplay = true;
 
   return result;
-}
-
-function toggleDecimal() {
-  if (decimalPressed) {
-    decimal.classList.remove("decimal-pressed");
-    decimalPressed = false;
-  } else {
-    decimal.classList.add("decimal-pressed");
-    decimalPressed = true;
-  }
 }
 
 function disableDecimal() {
