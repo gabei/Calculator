@@ -86,18 +86,17 @@ function updateDisplay(value) {
     : (calDisplay.textContent = calDisplay.textContent + value);
 }
 
-function clearDisplay(ignoreDecimalToggle) {
+function clearDisplay(resetDecimal) {
   calDisplay.textContent = "";
   removeOperatorHighlight();
-  if (!ignoreDecimalToggle) enableDecimal();
+  if (resetDecimal) enableDecimal();
 }
 
 function clearVariablesAndDisplay() {
+  clearDisplay(true);
   operands = [];
-  removeOperatorHighlight();
   operator.element = null;
   operator.operator = [];
-  enableDecimal();
 }
 
 /* Calculator Functions
