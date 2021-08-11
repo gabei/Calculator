@@ -280,12 +280,15 @@ function enableDecimal() {
 __________________________________*/
 
 document.addEventListener("keydown", function (e) {
-  const validChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  const validChars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
   const operatorChars = ["-", "+", "*", "/", "=", "Backspace", "Enter"];
   console.log(e.key);
 
   if (validChars.includes(e.key)) {
-    console.log("valid char registered...");
+    if (e.key === ".") {
+      if (decimalPressed) return;
+      disableDecimal();
+    }
     updateDisplay(e.key);
   }
   if (operatorChars.includes(e.key)) {
