@@ -45,6 +45,7 @@ body {
   cursor: pointer;
   font-size: 3rem;
   color: var(--cal-white);
+  font-family: inherit;
 }
 
 .operator {
