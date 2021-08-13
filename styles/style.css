@@ -35,6 +35,12 @@ body {
   background: var(--cal-black);
 }
 
+@media screen and (max-width: 580px) {
+  .calculator {
+    width: 90%;
+  }
+}
+
 .key {
   display: grid;
   justify-content: center;
