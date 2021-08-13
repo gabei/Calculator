@@ -55,7 +55,7 @@ __________________________________*/
 
 function inputDigit(e) {
   if (resultInDisplay) {
-    clearVariablesAndDisplay();
+    clearDisplay(true);
     resultInDisplay = false;
   }
 
