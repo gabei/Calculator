@@ -54,12 +54,20 @@ backspaceButton.addEventListener("click", backspace);
 __________________________________*/
 
 function inputDigit(e) {
+  // if there is a result in the display
+  //AND
+  // if there is NOT an operator (post equation)
+  // clear the operands array
   if (resultInDisplay) {
     clearDisplay(true);
     resultInDisplay = false;
   }
 
   if (e.target.classList.contains("digit")) {
+    if (!operatorExists()) {
+      console.log("clearing operands!");
+      operands = [];
+    }
     let val = e.target.getAttribute("value");
     updateDisplay(val);
   }
@@ -262,6 +270,8 @@ function formatAndDisplayResult(result) {
   operands.push(result);
   updateDisplay(result);
   resultInDisplay = true;
+  operator.element = null;
+  operator.operator = [];
 
   return result;
 }
