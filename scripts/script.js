@@ -54,10 +54,6 @@ backspaceButton.addEventListener("click", backspace);
 __________________________________*/
 
 function inputDigit(e) {
-  // if there is a result in the display
-  //AND
-  // if there is NOT an operator (post equation)
-  // clear the operands array
   if (resultInDisplay) {
     clearDisplay(true);
     resultInDisplay = false;
